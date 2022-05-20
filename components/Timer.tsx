@@ -11,8 +11,8 @@ import { useState, useEffect } from "react";
 const Timer = () => {
   const { colorMode } = useColorMode();
   const [audio, setAudio]: any = useState(null);
-  const [minutes, setMins] = useState(25);
-  const [seconds, setSecs] = useState(0);
+  const [minutes, setMins] = useState(0);
+  const [seconds, setSecs] = useState(10);
   const [active, setActive] = useState(false);
   const [status, setStatus] = useState("focus");
   const [paused, setPaused] = useState(false);
@@ -28,6 +28,10 @@ const Timer = () => {
   }, []);
 
   let interval: any;
+
+  const playAlarm = () => {
+    audio.play();
+  };
 
   const countDown = () => {
     const start = Date.now();
@@ -48,7 +52,7 @@ const Timer = () => {
         setActive(false);
         setMins(0);
         setSecs(6);
-        audio.play();
+        playAlarm();
       }
 
       if (diff <= 0 && status === "rest") {
@@ -57,7 +61,7 @@ const Timer = () => {
         setActive(false);
         setMins(0);
         setSecs(10);
-        audio.play();
+        playAlarm();
       }
 
       if (diff <= 0) {
