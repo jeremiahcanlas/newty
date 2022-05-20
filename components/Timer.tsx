@@ -108,7 +108,11 @@ const Timer = () => {
     >
       <Box my="auto">
         <Text
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-r,#08203e,#557c93)"
+              : "linear(to-l, #f7c2e6,#f7c2e6)"
+          }
           bgClip="text"
           fontSize="6em"
           fontWeight="700"

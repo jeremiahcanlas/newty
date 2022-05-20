@@ -1,9 +1,19 @@
-import { Box, Container, Icon, Stack, Text, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Icon,
+  Stack,
+  Text,
+  Link,
+  useColorMode,
+} from "@chakra-ui/react";
 import { GiCat } from "react-icons/gi";
 import Timer from "./Timer";
 import Toggle from "./Toggle";
 
 const Display = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Container>
       <Box lineHeight="1.2">
@@ -28,7 +38,11 @@ const Display = () => {
       <Container mt="auto" py="1.5em" centerContent textAlign="center">
         <Text
           fontWeight={200}
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
+          bgGradient={
+            colorMode === "light"
+              ? "linear(to-r,#08203e,#557c93)"
+              : "linear(to-l, #f7c2e6,#f7c2e6)"
+          }
           bgClip="text"
           fontSize="1em"
           letterSpacing="1px"
@@ -38,7 +52,11 @@ const Display = () => {
         <Link href="https://jeremiahcanlas.com" target="_blank">
           <Text
             fontWeight={500}
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
+            bgGradient={
+              colorMode === "light"
+                ? "linear(to-r,#08203e,#557c93)"
+                : "linear(to-l, #f7c2e6,#f7c2e6)"
+            }
             bgClip="text"
             fontSize="0.7em"
             letterSpacing="1px"
