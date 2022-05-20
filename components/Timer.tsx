@@ -29,8 +29,8 @@ const Timer = () => {
 
   let interval: any;
 
-  const playAlarm = () => {
-    audio.play();
+  const playAlarm = async () => {
+    await audio.play();
   };
 
   const countDown = () => {
