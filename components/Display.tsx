@@ -26,7 +26,7 @@ const Display = () => {
               <Text fontWeight={300} fontSize="0.7em">
                 focus vibes only.
               </Text>
-              <Icon as={GiCat} margin="0" />
+              {/* <Icon as={GiCat} margin="0" /> */}
             </Stack>
           </Box>
           <Toggle />

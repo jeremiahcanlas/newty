@@ -5,14 +5,15 @@ import {
   Stack,
   Text,
   useColorMode,
+  Flex,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 const Timer = () => {
   const { colorMode } = useColorMode();
   const [audio, setAudio]: any = useState(null);
-  const [minutes, setMins] = useState(0);
-  const [seconds, setSecs] = useState(10);
+  const [minutes, setMins] = useState(25);
+  const [seconds, setSecs] = useState(0);
   const [active, setActive] = useState(false);
   const [status, setStatus] = useState("focus");
   const [paused, setPaused] = useState(false);
@@ -50,8 +51,8 @@ const Timer = () => {
         clearInterval(interval);
         setStatus("rest");
         setActive(false);
-        setMins(0);
-        setSecs(6);
+        setMins(5);
+        setSecs(0);
         playAlarm();
       }
 
@@ -59,8 +60,8 @@ const Timer = () => {
         clearInterval(interval);
         setStatus("focus");
         setActive(false);
-        setMins(0);
-        setSecs(10);
+        setMins(25);
+        setSecs(0);
         playAlarm();
       }
 
@@ -86,8 +87,8 @@ const Timer = () => {
   const subtractTime = () => {
     setMins(minutes - 5);
 
-    if (minutes <= 25) {
-      setMins(25);
+    if (minutes <= 5) {
+      setMins(5);
     }
   };
 
@@ -100,34 +101,31 @@ const Timer = () => {
     setSecs(seconds | 0);
   };
 
+  const min = !minutes ? "00" : minutes < 10 ? "0" + minutes : minutes;
+  const sec = !seconds ? "00" : seconds < 10 ? "0" + seconds : seconds;
+
   return (
     <Container
-      display="flex"
-      flexDirection={"column"}
-      justifyContent={"center"}
       border="solid 1px"
       borderColor={colorMode === "light" ? "blackAlpha.300" : "whiteAlpha.300"}
       borderRadius="3px"
       p="2em"
     >
-      <Box my="auto">
-        <Text
-          bgGradient={
-            colorMode === "light"
-              ? "linear(to-r,#08203e,#557c93)"
-              : "linear(to-l, #f7c2e6,#f7c2e6)"
-          }
-          bgClip="text"
-          fontSize="6em"
-          fontWeight="700"
-        >
-          {`${!minutes ? "00" : minutes < 10 ? "0" + minutes : minutes}:${
-            !seconds ? "00" : seconds < 10 ? "0" + seconds : seconds
-          }`}
-        </Text>
+      <Box
+        textAlign={"center"}
+        bgGradient={
+          colorMode === "light"
+            ? "linear(to-r,#08203e,#557c93)"
+            : "linear(to-l, #f7c2e6,#f7c2e6)"
+        }
+        bgClip="text"
+        fontSize="5rem"
+        fontWeight="700"
+      >
+        {min}:{sec}
       </Box>
 
-      <Box mt="1em">
+      <Box mt="1em" textAlign="center">
         {!active ? (
           <>
             <Button
@@ -146,27 +144,34 @@ const Timer = () => {
                 : "take a break"}
             </Button>
             {!paused && (
-              <Stack
+              <Flex
                 visibility={status === "rest" ? "hidden" : "visible"}
                 direction="row"
-                spacing="1em"
                 mt="1em"
               >
-                <Button
-                  onClick={subtractTime}
-                  _focus={{ outline: "none" }} // this removes chakra ui weird focus border
-                  variant="outline"
-                >
-                  -
-                </Button>
-                <Button
-                  onClick={addTime}
-                  _focus={{ outline: "none" }} // this removes chakra ui weird focus border
-                  variant="outline"
-                >
-                  +
-                </Button>
-              </Stack>
+                <Box width="50%">
+                  {minutes > 5 && (
+                    <Button
+                      onClick={subtractTime}
+                      _focus={{ outline: "none" }} // this removes chakra ui weird focus border
+                      variant="outline"
+                    >
+                      -
+                    </Button>
+                  )}
+                </Box>
+                <Box width="50%">
+                  {minutes < 60 && (
+                    <Button
+                      onClick={addTime}
+                      _focus={{ outline: "none" }} // this removes chakra ui weird focus border
+                      variant="outline"
+                    >
+                      +
+                    </Button>
+                  )}
+                </Box>
+              </Flex>
             )}
           </>
         ) : (
