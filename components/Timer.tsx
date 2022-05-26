@@ -2,21 +2,28 @@ import {
   Button,
   Box,
   Container,
-  Stack,
-  Text,
   useColorMode,
   Flex,
+  Icon,
 } from "@chakra-ui/react";
+// import { MdMoreTime, MdLess } from "react-icons/md";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setTime } from "../redux/reducers/time";
 
 const Timer = () => {
+  const time = useSelector((state: any) => state.timeReducer);
+  const dispatch = useDispatch();
+
   const { colorMode } = useColorMode();
-  const [audio, setAudio]: any = useState(null);
+
   const [minutes, setMins] = useState(25);
   const [seconds, setSecs] = useState(0);
+
   const [active, setActive] = useState(false);
   const [status, setStatus] = useState("focus");
   const [paused, setPaused] = useState(false);
+  const [audio, setAudio]: any = useState(null);
   const [int, setInt] = useState("");
 
   //nextjs way of mounting mp3 files without getting audio not defined err
@@ -46,6 +53,14 @@ const Timer = () => {
       setMins((diff / 60) | 0);
       setSecs(diff % 60 | 0);
 
+      dispatch(
+        setTime({
+          minutes: (diff / 60) | 0,
+          seconds: diff % 60 | 0,
+          status: "focus",
+        })
+      );
+
       //when the timer ends then it clears the interval
       if (diff <= 0 && status === "focus") {
         clearInterval(interval);
@@ -53,6 +68,7 @@ const Timer = () => {
         setActive(false);
         setMins(5);
         setSecs(0);
+
         playAlarm();
       }
 
@@ -99,6 +115,14 @@ const Timer = () => {
     setActive(false);
     setMins(minutes | 0);
     setSecs(seconds | 0);
+
+    dispatch(
+      setTime({
+        minutes: time.minutes,
+        seconds: time.seconds,
+        status: "paused",
+      })
+    );
   };
 
   const min = !minutes ? "00" : minutes < 10 ? "0" + minutes : minutes;
@@ -135,6 +159,7 @@ const Timer = () => {
               variant="outline"
               letterSpacing="1px"
               fontWeight={300}
+              borderRadius="2px"
               _focus={{ outline: "none" }} // this removes chakra ui weird focus border
             >
               {status === "focus"
@@ -143,29 +168,36 @@ const Timer = () => {
                 ? "resume"
                 : "take a break"}
             </Button>
+            {/*  */}
             {!paused && (
               <Flex
                 visibility={status === "rest" ? "hidden" : "visible"}
                 direction="row"
                 mt="1em"
               >
-                <Box width="50%">
+                <Box width="50%" display="flex" justifyContent="end">
                   {minutes > 5 && (
                     <Button
+                      borderRadius="2px"
+                      mr="1em"
                       onClick={subtractTime}
                       _focus={{ outline: "none" }} // this removes chakra ui weird focus border
                       variant="outline"
+                      fontWeight={300}
                     >
                       -
                     </Button>
                   )}
                 </Box>
-                <Box width="50%">
+                <Box width="50%" display="flex" justifyContent="start">
                   {minutes < 60 && (
                     <Button
+                      borderRadius="2px"
+                      ml="1em"
                       onClick={addTime}
                       _focus={{ outline: "none" }} // this removes chakra ui weird focus border
                       variant="outline"
+                      fontWeight={300}
                     >
                       +
                     </Button>
@@ -177,6 +209,7 @@ const Timer = () => {
         ) : (
           status !== "rest" && (
             <Button
+              borderRadius="2px"
               height="60px"
               width="50%"
               letterSpacing="1px"
