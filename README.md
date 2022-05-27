@@ -17,3 +17,8 @@ These intervals are reffered to as _pomodoros_.
 - ChakraUI
 - Redux
 - Typescript
+
+## How to run it
+
+Development: `npm run dev`
+Live site: [newty timer](https://newty.vercel.app)
