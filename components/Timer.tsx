@@ -105,7 +105,8 @@ const Timer = () => {
           }
           bgClip="text"
           fontSize="5rem"
-          fontWeight="700"
+          letterSpacing="2px"
+          fontWeight="800"
         >
           {min}:{sec}
         </Box>

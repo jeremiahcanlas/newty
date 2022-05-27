@@ -7,7 +7,7 @@ import {
   Link,
   useColorMode,
 } from "@chakra-ui/react";
-import { GiCat } from "react-icons/gi";
+// import { GiCat } from "react-icons/gi";
 import Timer from "./Timer";
 import Toggle from "./Toggle";
 
@@ -15,10 +15,10 @@ const Display = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Container>
+    <Container p="0">
       <Box lineHeight="1.2">
-        <Stack direction="row" justifyContent={"space-between"}>
-          <Box>
+        <Stack direction="row" justifyContent={"space-between"} mt="1em">
+          <Box px="1em">
             <Text fontSize="1.8em" letterSpacing="1.4px" fontWeight={200}>
               newty
             </Text>
@@ -26,7 +26,6 @@ const Display = () => {
               <Text fontWeight={300} fontSize="0.7em">
                 focus vibes only.
               </Text>
-              {/* <Icon as={GiCat} margin="0" /> */}
             </Stack>
           </Box>
           <Toggle />

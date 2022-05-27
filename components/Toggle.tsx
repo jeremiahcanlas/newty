@@ -1,5 +1,6 @@
 import { useColorMode, Button, Icon, Box } from "@chakra-ui/react";
 import { CgMoon, CgSun } from "react-icons/cg";
+import { BsLightbulb, BsLightbulbOff } from "react-icons/bs";
 
 const Toggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -23,7 +24,7 @@ const Toggle = () => {
         >
           <Icon
             fontSize={["1.2em", "2em"]}
-            as={colorMode === "light" ? CgMoon : CgSun}
+            as={colorMode === "light" ? BsLightbulbOff : BsLightbulb}
           />
         </Button>
       </Box>
