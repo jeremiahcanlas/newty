@@ -5,6 +5,7 @@ const initialState: any = {
   seconds: 0,
   active: false,
   counter: 1,
+  paused: false,
 };
 
 export const timeSlice = createSlice({
@@ -17,6 +18,7 @@ export const timeSlice = createSlice({
         minutes: action.payload.minutes,
         seconds: action.payload.seconds,
         active: action.payload.active,
+        paused: false,
       };
     },
     moreTime: (state) => {
@@ -30,7 +32,7 @@ export const timeSlice = createSlice({
         ...state,
         minutes: state.minutes,
         seconds: state.seconds,
-        status: "paused",
+        paused: true,
         active: false,
       };
     },
@@ -45,6 +47,7 @@ export const timeSlice = createSlice({
           active: false,
         };
       }
+
       //resets counter after 3 focus status giving the user a longer break, this could be customized
       if (state.status === "focus" && state.counter >= 3) {
         return {
@@ -56,6 +59,7 @@ export const timeSlice = createSlice({
           counter: 0,
         };
       }
+
       return {
         ...state,
         minutes: 5,

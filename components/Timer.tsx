@@ -10,7 +10,7 @@ import {
 } from "../redux/reducers/time";
 
 const Timer = () => {
-  const { minutes, seconds, status, active } = useSelector(
+  const { minutes, seconds, status, active, paused } = useSelector(
     (state: any) => state.timeReducer
   );
   const dispatch = useDispatch();
@@ -124,14 +124,14 @@ const Timer = () => {
                 borderRadius="2px"
                 _focus={{ outline: "none" }}
               >
-                {status === "paused"
+                {paused
                   ? "resume"
                   : status === "rest"
                   ? "take a break"
                   : "focus"}
               </Button>
               {/*  */}
-              {status !== "paused" && (
+              {!paused && (
                 <Flex
                   visibility={status === "rest" ? "hidden" : "visible"}
                   direction="row"
