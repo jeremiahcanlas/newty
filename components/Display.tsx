@@ -13,13 +13,19 @@ import Toggle from "./Toggle";
 
 const Display = () => {
   const { colorMode } = useColorMode();
+  const isDark = colorMode !== "light";
 
   return (
     <Container p="0">
       <Box lineHeight="1.2">
         <Stack direction="row" justifyContent={"space-between"} mt="1em">
           <Box px="1em">
-            <Text fontSize="1.8em" letterSpacing="1.4px" fontWeight={200}>
+            <Text
+              fontSize="1.8em"
+              letterSpacing="1.4px"
+              fontWeight={200}
+              color={isDark ? "#f7c2e6" : "blackAlpha.600"}
+            >
               newty
             </Text>
             <Stack direction="row" spacing="1px">

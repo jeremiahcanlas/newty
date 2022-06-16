@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// let focusMins = 25;
+// let restMins = 15;
+// let seconds = 0;
+
 const initialState: any = {
   minutes: 25,
   seconds: 0,
   active: false,
   counter: 1,
+  stars: 0,
   paused: false,
 };
 
@@ -38,6 +43,7 @@ export const timeSlice = createSlice({
     },
     toggleStatus: (state) => {
       // toggles to rest after focus status vice versa
+      //initial mode
       if (state.status === "rest") {
         return {
           ...state,
@@ -49,6 +55,7 @@ export const timeSlice = createSlice({
       }
 
       //resets counter after 3 focus status giving the user a longer break, this could be customized
+      //big rest
       if (state.status === "focus" && state.counter >= 3) {
         return {
           ...state,
@@ -60,6 +67,7 @@ export const timeSlice = createSlice({
         };
       }
 
+      //small rest
       return {
         ...state,
         minutes: 5,
@@ -67,6 +75,7 @@ export const timeSlice = createSlice({
         status: "rest",
         active: false,
         counter: state.counter + 1,
+        stars: state.stars + 1,
       };
     },
     removeTime: () => {

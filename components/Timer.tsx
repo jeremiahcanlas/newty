@@ -1,4 +1,12 @@
-import { Button, Box, Container, useColorMode, Flex } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Container,
+  useColorMode,
+  Flex,
+  Text,
+  Icon,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,13 +16,15 @@ import {
   pauseTime as stopTime,
   toggleStatus,
 } from "../redux/reducers/time";
+import { RiStarSFill } from "react-icons/ri";
 
 const Timer = () => {
-  const { minutes, seconds, status, active, paused } = useSelector(
+  const { minutes, seconds, status, active, stars, paused } = useSelector(
     (state: any) => state.timeReducer
   );
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
+  const isDark = colorMode !== "light";
 
   const [audio, setAudio]: any = useState(null);
   const [int, setInt] = useState("");
@@ -90,23 +100,23 @@ const Timer = () => {
     >
       <Container
         border="solid 1px"
-        borderColor={
-          colorMode === "light" ? "blackAlpha.300" : "whiteAlpha.300"
-        }
+        borderColor={isDark ? "whiteAlpha.400" : "blackAlpha.500"}
         borderRadius="3px"
         p="2em"
       >
+        {/* <Container>
+          <Text>Focus Stars:</Text>
+        </Container> */}
         <Box
           textAlign={"center"}
           bgGradient={
-            colorMode === "light"
+            !isDark
               ? "linear(to-r,#08203e,#557c93)"
               : "linear(to-l, #f7c2e6,#f7c2e6)"
           }
           bgClip="text"
           fontSize="5rem"
-          letterSpacing="2px"
-          fontWeight="800"
+          fontWeight="600"
         >
           {min}:{sec}
         </Box>
@@ -116,6 +126,7 @@ const Timer = () => {
             <>
               <Button
                 height="60px"
+                borderColor={isDark ? "whiteAlpha.400" : "blackAlpha.500"}
                 width="50%"
                 onClick={countDown}
                 variant="outline"
@@ -141,11 +152,14 @@ const Timer = () => {
                     {minutes > 5 && (
                       <Button
                         borderRadius="2px"
+                        borderColor={
+                          isDark ? "whiteAlpha.400" : "blackAlpha.500"
+                        }
                         mr="1em"
                         onClick={subtractTime}
                         _focus={{ outline: "none" }}
                         variant="outline"
-                        fontWeight={300}
+                        fontWeight={700}
                       >
                         -
                       </Button>
@@ -155,11 +169,14 @@ const Timer = () => {
                     {minutes < 60 && (
                       <Button
                         borderRadius="2px"
+                        borderColor={
+                          isDark ? "whiteAlpha.400" : "blackAlpha.500"
+                        }
                         ml="1em"
                         onClick={addTime}
                         _focus={{ outline: "none" }}
                         variant="outline"
-                        fontWeight={300}
+                        fontWeight={700}
                       >
                         +
                       </Button>
@@ -171,6 +188,7 @@ const Timer = () => {
           ) : (
             <Button
               borderRadius="2px"
+              borderColor={isDark ? "whiteAlpha.400" : "blackAlpha.500"}
               height="60px"
               width="50%"
               letterSpacing="1px"
